@@ -2,7 +2,11 @@ name: Build APK
 
 on:
   push:
+    branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -26,3 +30,28 @@ jobs:
         with:
           name: SegnaleTrek-apk
           path: app/build/outputs/apk/debug/*.apk
+
+      - name: Pubblica l'APK nella release "ultima"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk SegnaleTrek.apk
+          gh release delete ultima --yes --cleanup-tag || true
+          gh release create ultima SegnaleTrek.apk \
+            --title "Segnale Trek (ultima versione)" \
+            --notes "APK generato automaticamente dal commit ${GITHUB_SHA}" \
+            --target "${GITHUB_SHA}"
+
+      - name: Salva l'APK nel branch "apk"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir /tmp/apkbranch
+          cp app/build/outputs/apk/debug/app-debug.apk /tmp/apkbranch/SegnaleTrek.apk
+          cd /tmp/apkbranch
+          git init -q -b apk
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add SegnaleTrek.apk
+          git commit -q -m "APK dal commit ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" apk

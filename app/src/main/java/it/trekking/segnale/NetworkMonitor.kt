@@ -217,6 +217,7 @@ class NetworkMonitor(private val context: Context) {
         return if (d in -150..-20) d else null
     }
 
+    @Suppress("DEPRECATION")
     private fun nomeRete(t: Int): String = when (t) {
         TelephonyManager.NETWORK_TYPE_NR -> "5G"
         TelephonyManager.NETWORK_TYPE_LTE, 19 -> "4G"
