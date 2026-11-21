@@ -53,7 +53,12 @@ class MainActivity : Activity() {
                 controllaPermessiEAvvia()
             }
         }
-        findViewById<Button>(R.id.btnEsporta).setOnClickListener { scegliSessione() }
+        findViewById<Button>(R.id.btnMappa).setOnClickListener {
+            scegliSessione("Scegli la traccia da vedere") { apriMappa(it) }
+        }
+        findViewById<Button>(R.id.btnEsporta).setOnClickListener {
+            scegliSessione("Scegli la traccia da esportare") { esporta(it) }
+        }
         findViewById<Button>(R.id.btnBatteria).setOnClickListener { apriImpostazioniBatteria() }
 
         findViewById<TextView>(R.id.legenda).text = """
@@ -187,7 +192,7 @@ class MainActivity : Activity() {
 
     // ------------------------------------------------------------ esportazione
 
-    private fun scegliSessione() {
+    private fun scegliSessione(titolo: String, azione: (File) -> Unit) {
         val dir = File(filesDir, "sessioni")
         val files = dir.listFiles { f -> f.extension == "csv" }?.sortedByDescending { it.name } ?: emptyList()
         if (files.isEmpty()) {
@@ -212,10 +217,14 @@ class MainActivity : Activity() {
         }.toTypedArray()
 
         AlertDialog.Builder(this)
-            .setTitle("Scegli la traccia da esportare")
-            .setItems(nomi) { _, which -> esporta(files[which]) }
+            .setTitle(titolo)
+            .setItems(nomi) { _, which -> azione(files[which]) }
             .setNegativeButton("Annulla", null)
             .show()
+    }
+
+    private fun apriMappa(csv: File) {
+        startActivity(Intent(this, MapActivity::class.java).putExtra(MapActivity.EXTRA_FILE, csv.absolutePath))
     }
 
     private fun esporta(csv: File) {

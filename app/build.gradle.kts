@@ -11,8 +11,8 @@ android {
         applicationId = "it.trekking.segnale"
         minSdk = 26          // Android 8.0
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
     }
 
     buildTypes {
@@ -36,4 +36,5 @@ android {
 
 dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
+    implementation("org.osmdroid:osmdroid-android:6.1.20")
 }

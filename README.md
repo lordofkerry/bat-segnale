@@ -15,7 +15,9 @@ Nel KML ci sono tre cartelle:
 - **Solo soccorsi: inizio e fine**: segnaposto arancioni, un pallino per l'inizio e un quadrato per la fine di ogni tratto.
 - **Nessun soccorso: inizio e fine**: lo stesso, in rosso.
 
-La descrizione del documento contiene un riepilogo: distanza e tempo per ogni tipo di copertura, numero di tratti critici e il più lungo.
+Nell'app c'è anche una **mappa OpenStreetMap** (pulsante *Mostra sulla mappa…*) con la traccia colorata allo stesso modo, i segnaposto di inizio (●) e fine (■) dei tratti critici e una legenda con i km per tipo di copertura. Si può passare dalla mappa topografica (OpenTopoMap) a quella standard. Toccando una linea o un segnaposto compaiono orari, durata, lunghezza e segnale. Se apri la traccia in registrazione, la mappa si aggiorna da sola. Le tessere della mappa si scaricano da internet: le zone già visualizzate restano in cache e si vedono anche offline.
+
+La descrizione del documento KML contiene un riepilogo: distanza e tempo per ogni tipo di copertura, numero di tratti critici e il più lungo.
 
 ---
 

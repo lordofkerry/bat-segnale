@@ -37,6 +37,13 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/btnMappa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Mostra sulla mappa…" />
+
+        <Button
             android:id="@+id/btnEsporta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
